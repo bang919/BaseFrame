@@ -4,14 +4,9 @@ import android.content.Context;
 
 import com.bigbang.baseframe.bean.response.SearchResponseBean;
 import com.bigbang.baseframe.common.BasePresenter;
+import com.bigbang.baseframe.common.ObserverFactory;
 import com.bigbang.baseframe.model.MainModel;
-import com.bigbang.baseframe.utils.ExceptionUtil;
 import com.bigbang.baseframe.view.MainView;
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -21,39 +16,24 @@ import io.reactivex.disposables.Disposable;
 public class MainPresenter extends BasePresenter<MainView> {
 
     private MainModel mMainModel;
-    private Disposable mMainDisposable;
 
-    public MainPresenter(Context context, MainView view, LifecycleProvider<ActivityEvent> activityLifecycleProvider) {
-        super(context, view, activityLifecycleProvider);
-        mMainModel = new MainModel(activityLifecycleProvider);
+    public MainPresenter(Context context, MainView view) {
+        super(context, view);
+        mMainModel = new MainModel();
     }
 
     public void search(String tag) {
-        if(mMainDisposable!=null){
-            mMainDisposable.dispose();
-            mMainDisposable = null;
-        }
-        mMainModel.search(tag, new Observer<SearchResponseBean>() {
+        final String observerTag = getClass() + "search";
+        mMainModel.search(tag, ObserverFactory.createObserver(observerTag, new ObserverFactory.MyObserver<SearchResponseBean>() {
             @Override
-            public void onSubscribe(Disposable d) {
-                mMainDisposable = d;
-            }
-
-            @Override
-            public void onNext(SearchResponseBean searchResponseBean) {
+            public void onMyNext(SearchResponseBean searchResponseBean) {
                 mView.onSearchResponse(searchResponseBean);
             }
 
             @Override
-            public void onError(Throwable e) {
-                mView.onSearchError(ExceptionUtil.getHttpExceptionMessage(e));
-                mMainDisposable = null;
+            public void onMyError(String errorMessage) {
+                mView.onSearchError(errorMessage);
             }
-
-            @Override
-            public void onComplete() {
-                mMainDisposable = null;
-            }
-        });
+        }));
     }
 }

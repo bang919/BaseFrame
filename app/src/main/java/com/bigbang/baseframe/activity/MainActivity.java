@@ -7,7 +7,6 @@ import com.bigbang.baseframe.dialog.NormalDialog;
 import com.bigbang.baseframe.presenter.MainPresenter;
 import com.bigbang.baseframe.utils.ToastUtils;
 import com.bigbang.baseframe.view.MainView;
-import com.trello.rxlifecycle2.navi.NaviLifecycle;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
 
@@ -18,7 +17,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @Override
     protected MainPresenter initPresenter() {
-        return new MainPresenter(this, this, NaviLifecycle.createActivityLifecycleProvider(this));
+        return new MainPresenter(this, this);
     }
 
     @Override
