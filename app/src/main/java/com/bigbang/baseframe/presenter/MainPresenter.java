@@ -8,6 +8,8 @@ import com.bigbang.baseframe.common.ObserverFactory;
 import com.bigbang.baseframe.model.MainModel;
 import com.bigbang.baseframe.view.MainView;
 
+import io.reactivex.Observable;
+
 
 /**
  * Created by Administrator on 2018/2/7.
@@ -24,7 +26,8 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void search(String tag) {
         final String observerTag = getClass() + "search";
-        mMainModel.search(tag, ObserverFactory.createObserver(observerTag, new ObserverFactory.MyObserver<SearchResponseBean>() {
+        Observable<SearchResponseBean> searchObservable = mMainModel.search(tag);
+        searchObservable.subscribe(ObserverFactory.createObserver(observerTag, new ObserverFactory.MyObserver<SearchResponseBean>() {
             @Override
             public void onMyNext(SearchResponseBean searchResponseBean) {
                 mView.onSearchResponse(searchResponseBean);
