@@ -4,11 +4,8 @@ import android.content.Context;
 
 import com.bigbang.baseframe.bean.response.SearchResponseBean;
 import com.bigbang.baseframe.common.BasePresenter;
-import com.bigbang.baseframe.common.ObserverFactory;
 import com.bigbang.baseframe.model.MainModel;
 import com.bigbang.baseframe.view.MainView;
-
-import io.reactivex.Observable;
 
 
 /**
@@ -26,8 +23,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void search(String tag) {
         final String observerTag = getClass() + "search";
-        Observable<SearchResponseBean> searchObservable = mMainModel.search(tag);
-        searchObservable.subscribe(ObserverFactory.createObserver(observerTag, new ObserverFactory.MyObserver<SearchResponseBean>() {
+        subscribeNetworkTask(observerTag, mMainModel.search(tag), new MyObserver<SearchResponseBean>() {
             @Override
             public void onMyNext(SearchResponseBean searchResponseBean) {
                 mView.onSearchResponse(searchResponseBean);
@@ -37,6 +33,6 @@ public class MainPresenter extends BasePresenter<MainView> {
             public void onMyError(String errorMessage) {
                 mView.onSearchError(errorMessage);
             }
-        }));
+        });
     }
 }
