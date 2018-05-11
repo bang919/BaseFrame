@@ -15,4 +15,19 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="FullScreenLightDialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="animate_dialog_exit">
+        <item name="android:windowExitAnimation">@anim/anim_dialog_exit</item>
+    </style>
+
+    <style name="animate_dialog_enter_and_exit" parent="animate_dialog_exit">
+        <item name="android:windowEnterAnimation">@anim/anim_dialog_enter</item>
+    </style>
+
 </resources>

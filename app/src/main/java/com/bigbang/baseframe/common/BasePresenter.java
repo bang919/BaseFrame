@@ -1,6 +1,7 @@
 package com.bigbang.baseframe.common;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.bigbang.baseframe.utils.ExceptionUtil;
 
@@ -19,12 +20,38 @@ import io.reactivex.disposables.Disposable;
 
 public class BasePresenter<V> {
 
+    private final String TAG = "BasePresenter";
+
     protected V mView;
     protected Context mContext;
 
     public BasePresenter(Context context, V view) {
         mView = view;
         mContext = context;
+    }
+
+    protected <T> void subscribeNetworkTask(Observable<T> observable) {
+        observable.retry(2).subscribe(new Observer<T>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(T t) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "onError() called with: e = [" + e + "]");
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     public <T> void subscribeNetworkTask(String observerTag, Observable<T> observable, MyObserver<T> myObserver) {
