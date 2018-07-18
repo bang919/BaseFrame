@@ -61,7 +61,7 @@ public class BasePresenter<V> {
 
 
     public void destroy() {
-        removeAllObserver();
+        cancelAllRequest();
         if (mView != null) {
             mView = null;
         }
@@ -87,7 +87,7 @@ public class BasePresenter<V> {
         mDisposableMap.remove(observerTag);
     }
 
-    public void removeAllObserver() {
+    public void cancelAllRequest() {
         Iterator<Map.Entry<String, Disposable>> iterator = mDisposableMap.entrySet().iterator();
         while (iterator.hasNext()) {
             iterator.next().getValue().dispose();
