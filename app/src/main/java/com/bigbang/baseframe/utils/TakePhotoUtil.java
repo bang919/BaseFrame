@@ -78,9 +78,6 @@ public class TakePhotoUtil {
             destBitmap.recycle();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (OutOfMemoryError error) {
         } finally {
             if (inputStream != null) {
                 try {
