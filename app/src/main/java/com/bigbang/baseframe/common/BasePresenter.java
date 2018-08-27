@@ -3,7 +3,7 @@ package com.bigbang.baseframe.common;
 import android.content.Context;
 import android.util.Log;
 
-import com.bigbang.baseframe.utils.ExceptionUtil;
+import com.bigbang.baseframe.utils.HttpUtil;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -99,7 +99,7 @@ public class BasePresenter<V> {
 
         removeObserver(observerTag);
 
-        return new Observer<T>() {
+        return HttpUtil.handlerObserver(new Observer<T>() {
             @Override
             public void onSubscribe(Disposable d) {
                 putObserver(observerTag, d);
@@ -112,8 +112,7 @@ public class BasePresenter<V> {
 
             @Override
             public void onError(Throwable e) {
-                String errorMessage = ExceptionUtil.getHttpExceptionMessage(e);
-                observer.onMyError(errorMessage);
+                observer.onMyError(e.getMessage());
                 removeObserver(observerTag);
             }
 
@@ -121,7 +120,7 @@ public class BasePresenter<V> {
             public void onComplete() {
                 removeObserver(observerTag);
             }
-        };
+        });
     }
 
     public interface MyObserver<T> {
