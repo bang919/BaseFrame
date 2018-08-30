@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable;
 public class HttpUtil {
 
     /**
-     * Request Http ， 不用MVP的时候可以用这个请求网络
+     * Request Http ， 不用MVP的时候可以用这个请求网络.
      */
     public static <T> void subscribeNetworkTask(Observable<T> observable, final BasePresenter.MyObserver<T> myObserver) {
         observable.subscribe(handlerObserver(new Observer<T>() {
