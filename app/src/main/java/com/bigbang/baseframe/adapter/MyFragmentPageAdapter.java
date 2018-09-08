@@ -17,6 +17,7 @@ public class MyFragmentPageAdapter {
     private Fragment mFragment;
     private int containerViewId;
     private Fragment currentFragment;
+    private boolean isFirstPage = true;//如果是第一页，不会addToBackStack，且不加动画
 
     public MyFragmentPageAdapter(FragmentActivity fragmentActivity, @IdRes int containerViewId) {
         mFragmentActivity = fragmentActivity;
@@ -34,12 +35,18 @@ public class MyFragmentPageAdapter {
 
     public void switchToFragment(Fragment targetFragment, boolean isAddToBackStack) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(
-                R.anim.anim_dialog_next_enter,
-                R.anim.anim_dialog_exit,
-                R.anim.anim_dialog_enter,
-                R.anim.anim_dialog_next_exit
-        );
+        if (isFirstPage) {//如果是第一页，不会addToBackStack，且不加动画
+            isAddToBackStack = false;
+            isFirstPage = false;
+        } else {
+            transaction.setCustomAnimations(
+                    R.anim.anim_dialog_next_enter,
+                    R.anim.anim_dialog_exit,
+                    R.anim.anim_dialog_enter,
+                    R.anim.anim_dialog_next_exit
+            );
+        }
+
         if (!isAddToBackStack) {
             if (currentFragment != null) {
                 transaction.hide(currentFragment);
