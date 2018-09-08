@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#00FFFFFF</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color><!--ActionBar颜色-->
+    <color name="colorPrimaryDark">#00FFFFFF</color><!--导航栏颜色-->
+    <color name="colorAccent">#FF4081</color><!--EditText游标等控件选中颜色-->
 
     <color name="colorBlack">#000000</color>
     <color name="colorHalfBlack">#70000000</color>
