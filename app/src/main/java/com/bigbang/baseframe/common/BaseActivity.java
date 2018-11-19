@@ -198,8 +198,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
      *
      * @param activity 需要打开的activity
      */
-    public void gotoActivity(Class<? extends Activity> activity) {
-        gotoActivity(null, activity);
+    public void jumpToActivity(Class<? extends Activity> activity) {
+        jumpToActivity(null, activity);
     }
 
 
@@ -208,7 +208,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
      *
      * @param activity 需要打开的activity
      */
-    public void gotoActivity(Map<String, Object> map, Class<? extends Activity> activity) {
+    public void jumpToActivity(Map<String, Object> map, Class<? extends Activity> activity) {
         Intent intent = new Intent();
         // 把返回数据存入Intent
         if (map != null) {

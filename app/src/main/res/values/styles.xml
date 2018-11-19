@@ -30,4 +30,14 @@
         <item name="android:windowEnterAnimation">@anim/anim_dialog_next_enter</item>
     </style>
 
+    <style name="LauncherActivity" parent="AppThemeLight">
+        <item name="android:background">@drawable/bg_splash</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="DisablePreviewTheme" parent="AppThemeLight">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
 </resources>
