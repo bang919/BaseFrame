@@ -43,4 +43,10 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     public void onError(String errorMsg) {
         ToastUtils.showShort(errorMsg);
     }
+
+    @Override
+    protected void onDestroy() {
+        getWindow().setBackgroundDrawable(null);//theme里面设置了windowBackground，需要清理
+        super.onDestroy();
+    }
 }
