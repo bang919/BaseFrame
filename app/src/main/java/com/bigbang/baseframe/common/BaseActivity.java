@@ -23,6 +23,8 @@ import com.bigbang.baseframe.R;
 
 import java.util.Map;
 
+import io.reactivex.Observable;
+
 /**
  * Created by bigbang on 2017/5/2.
  * activity 基类
@@ -31,7 +33,6 @@ import java.util.Map;
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity {
 
     protected P mPresenter;
-
 
     /**
      * 获取xml布局
@@ -73,11 +74,28 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         setContentView(getLayout());
         setSystemBarColor(getBarColor());
         mPresenter = initPresenter();
+        if (mPresenter == null) {
+            mPresenter = (P) new BasePresenter<>(this, null);
+        }
         initView();
         initData();
         initEvent();
     }
 
+    /**
+     * 不使用MVP模式的时候网络请求可以使用以下方法
+     */
+    protected <T> void subscribeNetworkTask(Observable<T> observable) {
+        mPresenter.subscribeNetworkTask(observable);
+    }
+
+    protected <T> void subscribeNetworkTask(Observable<T> observable, BasePresenter.MyObserver<T> myObserver) {
+        mPresenter.subscribeNetworkTask(observable, myObserver);
+    }
+
+    protected <T> void subscribeNetworkTask(String observerTag, Observable<T> observable, BasePresenter.MyObserver<T> myObserver) {
+        mPresenter.subscribeNetworkTask(observerTag, observable, myObserver);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

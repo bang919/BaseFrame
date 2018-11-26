@@ -30,6 +30,9 @@ public class BasePresenter<V> {
         mContext = context;
     }
 
+    /**
+     * 不用处理返回的网络请求
+     */
     protected <T> void subscribeNetworkTask(Observable<T> observable) {
         observable.retry(2).subscribe(new Observer<T>() {
             @Override
@@ -54,6 +57,16 @@ public class BasePresenter<V> {
         });
     }
 
+    /**
+     * 普通网络请求
+     */
+    public <T> void subscribeNetworkTask(Observable<T> observable, MyObserver<T> myObserver) {
+        subscribeNetworkTask(getClass().getSimpleName().concat(observable.toString()), observable, myObserver);
+    }
+
+    /**
+     * 新的网络请求会cancel掉具有相同observerTag的旧网络请求
+     */
     public <T> void subscribeNetworkTask(String observerTag, Observable<T> observable, MyObserver<T> myObserver) {
         Observer observer = createObserver(observerTag, myObserver);
         observable.subscribe(observer);

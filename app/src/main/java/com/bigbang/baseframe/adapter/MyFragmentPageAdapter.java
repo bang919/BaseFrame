@@ -91,19 +91,19 @@ public class MyFragmentPageAdapter {
             );
         }
 
+        if (currentFragment != null) {
+            transaction.hide(currentFragment);
+        }
+        if (!targetFragment.isAdded()) {
+            transaction.add(containerViewId, targetFragment);
+        } else {
+            transaction.show(targetFragment);
+        }
+
         if (!isAddToBackStack) {
-            if (currentFragment != null) {
-                transaction.hide(currentFragment);
-            }
-            if (!targetFragment.isAdded()) {
-                transaction.add(containerViewId, targetFragment);
-            } else {
-                transaction.show(targetFragment);
-            }
             transaction.commit();
             currentFragment = targetFragment;
         } else {
-            transaction.replace(containerViewId, targetFragment, targetFragment.getClass().getName());
             transaction.addToBackStack(targetFragment.getClass().getName());
             transaction.commitAllowingStateLoss();
         }
