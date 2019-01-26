@@ -10,6 +10,7 @@
     <color name="colorGray">#AAAAAA</color>
     <color name="colorTintWhite">#DFDFDF</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparent">#00000000</color>
     <color name="colorGreen">#77B634</color>
     <color name="colorYellow">#F3D933</color>
     <color name="colorDeepYellow">#F29C30</color>

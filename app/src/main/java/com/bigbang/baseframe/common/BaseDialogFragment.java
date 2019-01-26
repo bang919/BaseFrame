@@ -24,10 +24,6 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
     private View mLoadingView;
     private View mRootView;
 
-    public BaseDialogFragment() {
-        setStyle(0, R.style.FullScreenLightDialog);
-    }
-
     /**
      * 获取xml布局
      */
@@ -73,6 +69,12 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
             getDialog().getWindow().setWindowAnimations(R.style.animate_dialog_exit);
         }
         hadMeet++;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenLightDialog);
     }
 
     @Nullable
