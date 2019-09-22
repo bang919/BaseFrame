@@ -14,6 +14,14 @@ android {
         versionName "1.0"
         buildConfigField "String", "basicUrlHttps", "\"https://api.douban.com\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //只保留armeabi-v7a
+        ndk {
+            abiFilters('armeabi-v7a'/*, 'arm64-v8a'*/)
+        }
+
+        //只保留一种语言
+        resConfigs('en-rUS')
     }
 
     //重命名apk
@@ -38,7 +46,9 @@ android {
             signingConfig signingConfigs.mysigning
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            //启动资源压缩
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.mysigning
         }

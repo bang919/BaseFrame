@@ -22,4 +22,15 @@ public class MyApplication extends Application {
         return mApplicationContext;
     }
 
+    private void catchException() {
+        final Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(final Thread t, final Throwable e) {
+                defaultUncaughtExceptionHandler.uncaughtException(t, e);
+            }
+        });
+    }
+
 }
