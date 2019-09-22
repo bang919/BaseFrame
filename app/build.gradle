@@ -1,17 +1,18 @@
 apply plugin: 'com.android.application'
+apply from: '../constants.gradle'
 
 def releaseTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion project.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.bigbang.baseframe"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        versionCode project.ext.versionCode
+        versionName project.ext.versionName
         buildConfigField "String", "basicUrlHttps", "\"https://api.douban.com\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
